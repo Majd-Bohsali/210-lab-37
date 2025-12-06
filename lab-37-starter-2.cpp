@@ -3,26 +3,36 @@
 #include <iostream>
 #include <fstream>
 #include <string> 
+#include <map>
+#include <list>
 using namespace std;
 
-int sum_ascii(string); 
+int gen_hash_index(string); 
 
 int main() {
     string code; 
-    int total = 0;
+    int hashKey = 0;
     ifstream inputFile("lab-37-data-2.txt"); 
-    cout << "Total of ab: " << sum_ascii("ab") << endl; // should equal 195
+    map<int, list<string>> hashTable; 
 
     if(inputFile.is_open()) { 
         while(getline(inputFile, code)) { 
-            total += sum_ascii(code); 
+            hashKey = gen_hash_index(code); 
+            hashTable[hashKey].push_back(code); 
         }
         inputFile.close(); 
     } else { 
         cout << "File could not open"; 
     }
 
-    cout << "Grand total ASCII sum from file: " << total << endl; 
+    int indexCount = 0; 
+    for(auto it = hashTable.begin(); it != hashTable.end() && indexCount < 100 ; it++) { 
+        cout << "Key: " << it->first << endl;
+        for(string codeV : it->second) { 
+            cout << "    " << codeV << endl;
+        }
+    }
+
     return 0;
 }
 
@@ -34,10 +44,10 @@ These targets are present in the dataset and can be used for testing:
 E1D2665B21EA
 */
 
-int sum_ascii(string str) {
-    int asciiTotal = 0;
+int gen_hash_index(string str) {
+    int total = 0;
     for(int i = 0; i < str.length(); i++) { 
-        asciiTotal += (int) str.at(i); 
+        total += (int) str.at(i); 
     }
-    return asciiTotal; 
+    return total; 
 }
