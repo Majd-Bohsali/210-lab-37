@@ -1,20 +1,28 @@
 // COMSC210 | Lab 37 | Majd Bohsali
 // IDE Used: Visual Studio Code
 #include <iostream>
+#include <fstream>
+#include <string> 
 using namespace std;
 
 int sum_ascii(string); 
 
 int main() {
-    char a = 'A';
-    cout << a << endl;
-    cout << (int) a << endl;
-    int b = 66;
-    cout << b << endl;
-    cout << (char) b << endl;
-    
-    cout << "Total of ab: " << sum_ascii("ab"); // should equal 195
+    string code; 
+    int total = 0;
+    ifstream inputFile("lab-37-data-2.txt"); 
+    cout << "Total of ab: " << sum_ascii("ab") << endl; // should equal 195
 
+    if(inputFile.is_open()) { 
+        while(getline(inputFile, code)) { 
+            total += sum_ascii(code); 
+        }
+        inputFile.close(); 
+    } else { 
+        cout << "File could not open"; 
+    }
+
+    cout << "Grand total ASCII sum from file: " << total << endl; 
     return 0;
 }
 
