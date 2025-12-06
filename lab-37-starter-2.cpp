@@ -31,6 +31,7 @@ int main() {
         for(string codeV : it->second) { 
             cout << "    " << codeV << endl;
         }
+        indexCount++;
     }
 
     return 0;
