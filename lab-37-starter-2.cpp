@@ -9,6 +9,7 @@ using namespace std;
 
 int gen_hash_index(string); 
 void searchKey(map<int, list<string>> hashTable, string searchCode); 
+void addKey(map<int, list<string>>& hashTable, string newCode); 
 
 int main() {
     string code; 
@@ -53,7 +54,10 @@ int main() {
             cin >> searchCode; 
             searchKey(hashTable, searchCode);
         } else if (selection == 3) { 
-            // add a key
+            string newCode; 
+            cout << "Enter a new code to add: "; 
+            cin >> newCode; 
+            addKey(hashTable, newCode);
         } else if (selection == 4) { 
             // remove a key
         } else if (selection == 5) { 
@@ -95,8 +99,15 @@ void searchKey(map<int, list<string>> hashTable, string searchCode) {
         for(string code : it->second) { 
             if(code == searchCode) { 
                 cout << "Search Key Found" << endl; 
-                break; 
+                return; 
             }
         }
+        cout << "Search Key not in hash table" << endl;
     }
+}
+
+void addKey(map<int, list<string>>& hashTable, string newCode) { 
+    int newKey = gen_hash_index(newCode);
+    hashTable[newKey].push_back(newCode); 
+    cout << "New Code Added to HashTable" << endl;
 }
