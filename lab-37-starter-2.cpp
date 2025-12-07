@@ -11,6 +11,7 @@ int gen_hash_index(string);
 void searchKey(map<int, list<string>>, string); 
 void addKey(map<int, list<string>>&, string); 
 void removeKey(map<int, list<string>>&, string);
+void modifyKey(map<int, list<string>>&, string, string);
 
 int main() {
     string code; 
@@ -65,7 +66,12 @@ int main() {
             cin >> delCode; 
             removeKey(hashTable, delCode); 
         } else if (selection == 5) { 
-            // Modify a key
+            string originalCode, newCode; 
+            cout << "Enter the original code: "; 
+            cin >> originalCode; 
+            cout << "Enter the new code: "; 
+            cin >> newCode; 
+            modifyKey(hashTable, originalCode, newCode); 
         } else if (selection == 6) { 
             break; 
         }
@@ -98,15 +104,15 @@ void searchKey(map<int, list<string>> hashTable, string searchCode) {
     int searchKey = gen_hash_index(searchCode);
     auto it = hashTable.find(searchKey); 
     if(it == hashTable.end()) { 
-        cout << "Search Key not in hash table" << endl;
+        cout << "Search Code not in hash table" << endl;
     } else {
         for(string code : it->second) { 
             if(code == searchCode) { 
-                cout << "Search Key Found" << endl; 
+                cout << "Search Code Found" << endl; 
                 return; 
             }
         }
-        cout << "Search Key not in hash table" << endl;
+        cout << "Search Code not in hash table" << endl;
     }
 }
 
@@ -117,18 +123,39 @@ void addKey(map<int, list<string>>& hashTable, string newCode) {
 }
 
 void removeKey(map<int, list<string>>& hashTable, string delCode) { 
-    int newKey = gen_hash_index(delCode);
-    auto it = hashTable.find(newKey); 
+    int delKey = gen_hash_index(delCode);
+    auto it = hashTable.find(delKey); 
     if(it == hashTable.end()) { 
-        cout << "Search Key not in hash table" << endl;
+        cout << "Search Code not in hash table" << endl;
     } else {
         for(auto l = it->second.begin(); l != it->second.end(); l++) { 
             if(*l == delCode) { 
                 it->second.erase(l); 
-                cout << "Key Removed" << endl; 
+                cout << "Code Removed" << endl; 
                 return; 
             }
         }
-        cout << "Search Key not in hash table" << endl;
+        cout << "Search Code not in hash table" << endl;
+    }
+}
+
+void modifyKey(map<int, list<string>>& hashTable, string originalCode, string newCode) { 
+    int originalKey = gen_hash_index(originalCode); 
+    int newKey =  gen_hash_index(newCode); 
+
+    auto it = hashTable.find(originalKey); 
+    if(it == hashTable.end()) { 
+        cout << "Original Key not in hash table" << endl;
+    } else {
+        for(auto l = it->second.begin(); l != it->second.end(); l++) { 
+            if(*l == originalCode) { 
+                it->second.erase(l); 
+                cout << "Original Code Removed" << endl; 
+                hashTable[newKey].push_back(newCode);
+                cout << "New Code Added" << endl; 
+                return; 
+            }
+        }
+        cout << "Original Code not in hash table" << endl;
     }
 }
