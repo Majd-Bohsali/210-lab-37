@@ -8,8 +8,9 @@
 using namespace std;
 
 int gen_hash_index(string); 
-void searchKey(map<int, list<string>> hashTable, string searchCode); 
-void addKey(map<int, list<string>>& hashTable, string newCode); 
+void searchKey(map<int, list<string>>, string); 
+void addKey(map<int, list<string>>&, string); 
+void removeKey(map<int, list<string>>&, string);
 
 int main() {
     string code; 
@@ -59,7 +60,10 @@ int main() {
             cin >> newCode; 
             addKey(hashTable, newCode);
         } else if (selection == 4) { 
-            // remove a key
+            string delCode; 
+            cout << "Enter a code to remove: "; 
+            cin >> delCode; 
+            removeKey(hashTable, delCode); 
         } else if (selection == 5) { 
             // Modify a key
         } else if (selection == 6) { 
@@ -110,4 +114,21 @@ void addKey(map<int, list<string>>& hashTable, string newCode) {
     int newKey = gen_hash_index(newCode);
     hashTable[newKey].push_back(newCode); 
     cout << "New Code Added to HashTable" << endl;
+}
+
+void removeKey(map<int, list<string>>& hashTable, string delCode) { 
+    int newKey = gen_hash_index(delCode);
+    auto it = hashTable.find(newKey); 
+    if(it == hashTable.end()) { 
+        cout << "Search Key not in hash table" << endl;
+    } else {
+        for(auto l = it->second.begin(); l != it->second.end(); l++) { 
+            if(*l == delCode) { 
+                it->second.erase(l); 
+                cout << "Key Removed" << endl; 
+                return; 
+            }
+        }
+        cout << "Search Key not in hash table" << endl;
+    }
 }
