@@ -92,8 +92,8 @@ void searchKey(map<int, list<string>> hashTable, string searchCode) {
     if(it == hashTable.end()) { 
         cout << "Search Key not in hash table" << endl;
     } else {
-        for(int i = 0; i < it->second.size(); i++) { 
-            if(it->second.at(i) == searchKey) { 
+        for(string code : it->second) { 
+            if(code == searchCode) { 
                 cout << "Search Key Found" << endl; 
                 break; 
             }
