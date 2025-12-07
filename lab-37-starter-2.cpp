@@ -8,6 +8,7 @@
 using namespace std;
 
 int gen_hash_index(string); 
+void searchKey(map<int, list<string>> hashTable, string searchCode); 
 
 int main() {
     string code; 
@@ -47,7 +48,10 @@ int main() {
                 indexCount++;
             }
         } else if (selection == 2) { 
-            // search for a key
+            string searchCode; 
+            cout << "Enter a code to search for: "; 
+            cin >> searchCode; 
+            searchKey(hashTable, searchCode);
         } else if (selection == 3) { 
             // add a key
         } else if (selection == 4) { 
@@ -58,6 +62,7 @@ int main() {
             break; 
         }
 
+        cout << endl;
     } while (selection != 6);
 
 
@@ -79,4 +84,19 @@ int gen_hash_index(string str) {
         total += (int) str.at(i); 
     }
     return total; 
+}
+
+void searchKey(map<int, list<string>> hashTable, string searchCode) { 
+    int searchKey = gen_hash_index(searchCode);
+    auto it = hashTable.find(searchKey); 
+    if(it == hashTable.end()) { 
+        cout << "Search Key not in hash table" << endl;
+    } else {
+        for(int i = 0; i < it->second.size(); i++) { 
+            if(it->second.at(i) == searchKey) { 
+                cout << "Search Key Found" << endl; 
+                break; 
+            }
+        }
+    }
 }
