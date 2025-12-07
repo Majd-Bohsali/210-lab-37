@@ -25,14 +25,42 @@ int main() {
         cout << "File could not open"; 
     }
 
-    int indexCount = 0; 
-    for(auto it = hashTable.begin(); it != hashTable.end() && indexCount < 100 ; it++) { 
-        cout << "Key: " << it->first << endl;
-        for(string codeV : it->second) { 
-            cout << "    " << codeV << endl;
+    int selection = 0;
+    do { 
+        cout << "Choose an option: " << endl; 
+        cout << "1. Print first 100 entries" << endl; 
+        cout << "2. Search for a Key" << endl; 
+        cout << "3. Add a Key" << endl; 
+        cout << "4. Remove a Key" << endl; 
+        cout << "5. Modify a Key" << endl; 
+        cout << "6. Exit" << endl; 
+        cout << "Selection -> "; 
+        cin >> selection; 
+
+        if(selection == 1) { 
+            int indexCount = 0; 
+            for(auto it = hashTable.begin(); it != hashTable.end() && indexCount < 100 ; it++) { 
+                cout << "Key: " << it->first << endl;
+                for(string codeV : it->second) { 
+                    cout << "    " << codeV << endl;
+                }
+                indexCount++;
+            }
+        } else if (selection == 2) { 
+            // search for a key
+        } else if (selection == 3) { 
+            // add a key
+        } else if (selection == 4) { 
+            // remove a key
+        } else if (selection == 5) { 
+            // Modify a key
+        } else if (selection == 6) { 
+            break; 
         }
-        indexCount++;
-    }
+
+    } while (selection != 6);
+
+
 
     return 0;
 }
